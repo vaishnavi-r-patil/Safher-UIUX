@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SAFHER — Phone Mockup Demo</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <style>
+    .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+    body{min-height:100vh;background:linear-gradient(135deg,#ffd1f7,#ffffff);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
+    /* phone frame */
+    .phone-frame{width:390px;height:844px;border-radius:48px;padding:18px;background:linear-gradient(180deg,#0b0f13 0%, #0f1724 100%);box-shadow:0 30px 80px rgba(0,0,0,0.6);border:12px solid #0b0f13;position:relative}
+    .screen{width:100%;height:100%;border-radius:32px;overflow:hidden;background:linear-gradient(180deg,#f8f8f8 0%, #f1f1f1 100%)}
+    /* top notch */
+    .notch{position:absolute;left:50%;transform:translateX(-50%);top:6px;width:160px;height:28px;background:rgba(0,0,0,0.12);border-radius:14px;backdrop-filter:blur(4px)}
+    /* navigation outside phone */
+    .host{min-height:100vh;display:flex;align-items:center;justify-content:center;gap:20px;padding:40px}
+    .nav-pill{background:linear-gradient(180deg,#111827,#0b1220);padding:10px;border-radius:12px;color:#fff}
+    /* small helper for internal sections */
+    .app-screen{padding:0;margin:0;height:100%;display:none}
+    .app-screen.active{display:block}
+    /* make content inside phone look like the originals (use tailwind inside) */
+    @media (max-width:520px){.phone-frame{transform:scale(0.85)}}
+  </style>
+</head>
+<body class="bg-[#071025]">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet" />
+  
+  <div class="host">
+    <!-- Left nav outside phone (for convenience) -->
+    <div class="nav-pill flex flex-col gap-2">
+      <button onclick="show('sos')" class="px-3 py-2 rounded-md bg-pink-500/90 hover:opacity-90">Customize SOS</button>
+      <button onclick="show('voice')" class="px-3 py-2 rounded-md bg-pink-500/70 hover:opacity-90">Voice SOS</button>
+      <button onclick="show('ride')" class="px-3 py-2 rounded-md bg-pink-500/70 hover:opacity-90">Ride</button>
+      <button onclick="show('driver')" class="px-3 py-2 rounded-md bg-pink-500/70 hover:opacity-90">Driver</button>
+      <button onclick="show('safety')" class="px-3 py-2 rounded-md bg-pink-500/70 hover:opacity-90">Safety Check</button>
+    </div>
+
+    <!-- PHONE FRAME -->
+    <div class="phone-frame">
+      <div class="notch"></div>
+      <div class="screen">
+        <!-- Container for app screens -->
+        <div id="sos" class="app-screen active bg-background-light dark:bg-background-dark text-black dark:text-white">
+          <!-- Top App Bar -->
+          <div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+            <div class="flex items-center text-text-light dark:text-text-dark"><span class="material-symbols-outlined">arrow_back</span></div>
+            <h2 class="flex-1 text-center text-lg font-bold">Customize SOS Button</h2>
+            <div style="width:36px"></div>
+          </div>
+          <p class="text-center text-sm text-gray-500 dark:text-gray-300 px-4 mt-2">Drag to reposition your SOS button</p>
+
+          <div class="p-4">
+            <div class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-pink-300/30 dark:border-pink-400/40 bg-white dark:bg-gray-800 px-6 py-12 mx-3">
+              <div class="text-center">
+                <p class="text-lg font-bold">Mock Phone Preview</p>
+                <p class="text-sm text-gray-500 mt-1">This area represents your screen. Drag the button below to your preferred location.</p>
+              </div>
+              <button id="dragBtn" class="rounded-full h-14 w-14 bg-pink-500 text-white font-bold shadow-lg">SOS</button>
+            </div>
+          </div>
+
+          <div class="px-4 pb-4 mt-2">
+            <div class="flex items-center gap-4 bg-white dark:bg-gray-800 px-4 min-h-[72px] py-3 justify-between rounded-lg mx-1">
+              <div class="flex items-center gap-4">
+                <div class="rounded-lg bg-pink-100 text-pink-600 p-3"><span class="material-symbols-outlined">vibration</span></div>
+                <div>
+                  <p class="font-medium">Enable shake-to-SOS</p>
+                  <p class="text-sm text-gray-500">Trigger an alert by shaking your phone vigorously.</p>
+                </div>
+              </div>
+              <label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full p-0.5 bg-black/10">
+                <div id="toggleKnob" class="h-full w-[27px] rounded-full bg-white transition-transform" style="box-shadow: rgba(0,0,0,0.15) 0 3px 8px;"></div>
+                <input id="shakeToggle" type="checkbox" class="absolute opacity-0 left-0 top-0 h-full w-full" />
+              </label>
+            </div>
+          </div>
+
+          <div class="sticky bottom-0 bg-background-light dark:bg-background-dark pt-2 pb-6 px-4">
+            <div class="flex">
+              <button class="flex items-center justify-center rounded-full h-14 px-5 flex-1 bg-pink-500 text-white font-bold">Save</button>
+            </div>
+            <div class="flex justify-center pt-4">
+              <button class="text-sm text-gray-500 hover:text-pink-400">Reset to Default</button>
+            </div></div></div>
+  
+
+        <!-- Voice SOS Screen -->
+        <div id="voice" class="app-screen bg-background-light dark:bg-background-dark text-black dark:text-white">
+          <header class="flex items-center p-4">
+            <div><span class="material-symbols-outlined">arrow_back</span></div>
+            <h1 class="flex-1 text-center font-bold">Set Up Voice SOS</h1>
+          </header>
+          <main class="px-4 pb-24">
+            <p class="text-sm text-gray-500 dark:text-gray-300">Say or type your safe words (e.g., Help, Stop, No).</p>
+            <div class="mt-4">
+              <div class="flex w-full rounded-lg overflow-hidden border bg-white dark:bg-gray-800">
+                <div class="p-3 flex items-center"><span class="material-symbols-outlined">search</span></div>
+                <input class="flex-1 p-3 bg-transparent outline-none" placeholder="Enter a safe word" />
+              </div>
+            </div>
+
+            <div class="flex gap-2 flex-wrap mt-4">
+              <div class="flex items-center gap-2 rounded-full bg-gray-200 dark:bg-gray-700 px-3 py-1"><span>Help</span><button class="ml-1"><span class="material-symbols-outlined">cancel</span></button></div>
+              <div class="flex items-center gap-2 rounded-full bg-gray-200 dark:bg-gray-700 px-3 py-1"><span>Stop</span><button class="ml-1"><span class="material-symbols-outlined">cancel</span></button></div>
+              <div class="flex items-center gap-2 rounded-full bg-gray-200 dark:bg-gray-700 px-3 py-1"><span>No</span><button class="ml-1"><span class="material-symbols-outlined">cancel</span></button></div>
+            </div>
+
+            <p class="text-xs text-gray-500 mt-3">The app will listen for these words when you're on a ride.</p>
+
+            <div class="flex items-center justify-center my-6">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1IdLJ3GzpleyUdOtlbuLzCVuop9NuMu96WQa2xDYvW1DmD9c2k_2FQYI0MHKKYdydJoUGnPaR2HiBvZSwI1EC-lkXz-LW7moEKfc5ed5AiJvY9HMX-IYYUorQaFVu79RGubkhzdrhsrFnfzUDv-kun_jiidhA381NhBWKV_UK8V_ANN6lomxR70fRh2gStwRN8lnPpcv6g3ef-YRi3B0Kh4Af4KoU3NbFCVzVpIh-YFDjxtV77WeALm8hQhiZ8BA1HRoJPjYFg8lp" alt="audio wave" class="w-56">
+            </div>
+
+            <div class="flex flex-col gap-3">
+              <button class="h-14 w-full rounded-full bg-pink-100 text-pink-600 font-bold">Test Detection</button>
+              <button class="h-14 w-full rounded-full bg-pink-500 text-white font-bold">Save Keywords</button>
+            </div>
+          </main>
+        </div>
+
+        <!-- Ride Screen -->
+        <div id="ride" class="app-screen bg-[#0F1115] text-white">
+          <div class="p-4">
+            <p class="font-bold text-lg">Ride in Progress</p>
+          </div>
+          <div class="bg-cover h-56" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1TLXJteYPKIbh5BqEOWNfJXHZoS4vrJPLzFZCloiNgO9o_sW0EOBLcRkXY97v6rTyWi48kMNBOErUKepX6T08k9E8M5q4cGYqbhmxoAsrKwLN6vuEYALO9_OtXTQjjUb7dlftukSrI8MX-XZfDnmD_h6cKFVTNkGQQ_9jynVc8Avs13lc4Vt6UujAwrAUVQlpenC2uq6Zgxb32qqUY6RldZC3M_EUUAVCBbyrgPy2QooI5xIM3SXtUHBem1BY5cCjltKxTiG5BStJ');"></div>
+
+          <div class="p-4 bg-gradient-to-t from-[#0f1115] via-[#0f1115]/80 to-transparent">
+            <p class="text-white/60">ETA 12 MINS · 3.5 mi left</p>
+            <p class="text-white text-2xl font-bold">123 Main Street, Anytown</p>
+            <p class="text-white/60 mt-2">Driver: Maria · White Toyota Camry · ABC-123</p>
+
+            <div class="grid grid-cols-3 gap-3 mt-4">
+              <div class="text-center">
+                <div class="rounded-full bg-white/10 p-3 inline-block"><span class="material-symbols-outlined">share_location</span></div>
+                <p class="text-xs mt-1">Share Ride</p>
+              </div>
+              <div class="text-center">
+                <div class="rounded-full bg-white/10 p-3 inline-block"><span class="material-symbols-outlined">group</span></div>
+                <p class="text-xs mt-1">Contacts</p>
+              </div>
+              <div class="text-center">
+                <div class="rounded-full bg-pink-200 p-3 inline-block ring-2 ring-pink-400"><span class="material-symbols-outlined text-pink-500">sos</span></div>
+                <p class="text-xs mt-1 text-pink-400 font-bold">SOS</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Driver Info Screen -->
+        <div id="driver" class="app-screen bg-background-light dark:bg-background-dark text-black dark:text-white">
+          <div class="p-4">
+            <div class="flex items-center gap-4">
+              <div class="w-20 h-20 rounded-full bg-cover" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuC0oh1H11ZU-VuRdpE8YVKYvFrlY73gX0sI7ZWUNpkCuGlPKBgW4Pg2yLKZPpHYZxH8EPuG07LISV05xsgAuRG6HqrANvlIx63bKY5r4HAYGHiOiyQwx6u2rvaRsvjMqX421d2aKuaTD10GvxelbI-vIv2sxt0GE7hfq-vpxAsKVjVeYFvBmR6jA8Hu3fRmH6gAOeB2Mh2FqcY8ckVZqYN7AqiZhJCiL7qBYfYeZF6ghTntYJN0E0fQ3Yg6323HpOvyh_qO4r5WQiEW');"></div>
+              <div>
+                <p class="font-bold text-lg">Michael R.</p>
+                <p class="text-sm text-gray-500">Toyota Camry, Black - GHI-789</p>
+              </div>
+            </div>
+
+            <div class="mt-6 bg-white dark:bg-gray-800 rounded-lg p-4">
+              <h3 class="font-bold">AI Trust Score</h3>
+              <div class="flex items-baseline justify-between mt-3">
+                <p class="text-sm text-gray-500">Safety Rating</p>
+                <p class="text-3xl font-bold">78<span class="text-sm text-gray-500">/100</span></p>
+              </div>
+              <div class="h-2.5 w-full rounded-full bg-gray-200 mt-3 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-green-500 via-yellow-400 to-red-500" style="width:78%"></div>
+              </div>
+            </div>
+
+            <div class="mt-4 space-y-3">
+              <div class="flex items-center gap-4 p-3 bg-white dark:bg-gray-800 rounded-lg">
+                <div class="rounded-lg bg-pink-100 text-pink-600 p-3"><span class="material-symbols-outlined">star</span></div>
+                <div>
+                  <p class="font-medium">Passenger Feedback</p>
+                  <p class="text-sm text-gray-500">4.8 Stars from 200+ rides</p>
+                </div>
+                <div class="ml-auto text-gray-400"><span class="material-symbols-outlined">info</span></div>
+              </div>
+
+              <div class="flex items-center gap-4 p-3 bg-white dark:bg-gray-800 rounded-lg">
+                <div class="rounded-lg bg-pink-100 text-pink-600 p-3"><span class="material-symbols-outlined">route</span></div>
+                <div>
+                  <p class="font-medium">Ride History Consistency</p>
+                  <p class="text-sm text-gray-500">High consistency in route and time</p>
+                </div>
+                <div class="ml-auto text-gray-400"><span class="material-symbols-outlined">info</span></div>
+              </div>
+
+              <div class="flex items-center gap-4 p-3 bg-white dark:bg-gray-800 rounded-lg">
+                <div class="rounded-lg bg-pink-100 text-pink-600 p-3"><span class="material-symbols-outlined">sentiment_satisfied</span></div>
+                <div>
+                  <p class="font-medium">Sentiment Analysis</p>
+                  <p class="text-sm text-gray-500">Overwhelmingly positive feedback</p>
+                </div>
+                <div class="ml-auto text-gray-400"><span class="material-symbols-outlined">info</span></div>
+              </div>
+            </div>
+
+            <div class="mt-6">
+              <button class="w-full h-14 rounded-lg bg-pink-500 text-white font-bold">Report a Concern</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Safety Check Modal Screen -->
+        <div id="safety" class="app-screen bg-background-light dark:bg-background-dark text-black dark:text-white">
+          <div class="absolute inset-0 flex items-end justify-center">
+            <div class="w-full bg-white dark:bg-gray-900 rounded-t-3xl p-4">
+              <div class="h-1 w-12 bg-gray-300 rounded-full mx-auto mb-3"></div>
+              <h1 class="text-2xl font-bold text-center">Did you reach safely?</h1>
+              <p class="text-sm text-gray-500 text-center mt-2">No response in 2 mins will alert your trusted contacts.</p>
+              <div class="flex gap-3 mt-6 px-4">
+                <div class="flex-1">
+                  <div class="h-16 rounded-lg bg-gray-200 flex items-center justify-center"><p class="text-3xl font-bold">00</p></div>
+                  <p class="text-center text-sm mt-1">Hours</p>
+                </div>
+                <div class="flex-1">
+                  <div class="h-16 rounded-lg bg-gray-200 flex items-center justify-center"><p class="text-3xl font-bold">02</p></div>
+                  <p class="text-center text-sm mt-1">Minutes</p>
+                </div>
+                <div class="flex-1">
+                  <div class="h-16 rounded-lg bg-gray-200 flex items-center justify-center"><p class="text-3xl font-bold">00</p></div>
+                  <p class="text-center text-sm mt-1">Seconds</p>
+                </div>
+              </div>
+
+              <div class="mt-6 px-4 pb-6">
+                <button class="w-full h-14 rounded-full bg-green-600 text-white font-bold mb-3">Yes</button>
+                <button class="w-full h-14 rounded-full bg-red-600 text-white font-bold">No</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<script>
+  function show(id){
+    document.querySelectorAll('.app-screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // simple draggable SOS button demo (constrained inside phone screen)
+  (function(){
+    const btn = document.getElementById('dragBtn');
+    if(!btn) return;
+    let dragging=false,offset={x:0,y:0};
+    btn.addEventListener('pointerdown',e=>{dragging=true;btn.setPointerCapture(e.pointerId);offset.x=e.clientX-btn.getBoundingClientRect().left;offset.y=e.clientY-btn.getBoundingClientRect().top;btn.style.transition='none'});
+    document.addEventListener('pointermove',e=>{if(!dragging) return;const screenRect=document.querySelector('.screen').getBoundingClientRect();let left=e.clientX-offset.x-screenRect.left;let top=e.clientY-offset.y-screenRect.top;left=Math.max(8,Math.min(screenRect.width-56,left));top=Math.max(56,Math.min(screenRect.height-140,top));btn.style.position='absolute';btn.style.left=left+'px';btn.style.top=top+'px';});
+    document.addEventListener('pointerup',e=>{dragging=false;btn.releasePointerCapture && btn.releasePointerCapture(e.pointerId);btn.style.transition='box-shadow .2s'});
+  })();
+
+  // toggle visual
+  document.getElementById('shakeToggle')?.addEventListener('change',function(e){const knob=document.getElementById('toggleKnob');if(this.checked){knob.style.transform='translateX(20px)'}else{knob.style.transform='translateX(0)'}});
+</script>
+  <footer class="mt-8 pb-6 text-center">
+    <h1 class="text-2xl font-extrabold bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-md tracking-wider" style="font-family: 'Playfair Display', serif; letter-spacing: 0.06em;">Made by Team Violet</h1>
+  </footer>
+</body>
+</html>
