@@ -208,20 +208,20 @@
         </div>
 
        <!-- Safety Check Modal Screen with Map Background -->
-<div id="safety" class="app-screen bg-background-light dark:bg-background-dark text-black dark:text-white">
-  <div class="absolute inset-0">
-    <!-- Map Background -->
-    <div class="absolute inset-0">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.6932936788236!2d-74.00601508459307!3d40.71277597933066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQyJzQ2LjAiTiA3NMKwMDAnMDAuMCJX!5e0!3m2!1sen!2sus!4v1698912000000!5m2!1sen!2sus"
-        class="w-full h-full"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-      <div class="absolute inset-0 bg-black/25"></div> <!-- dark overlay for readability -->
-    </div>
+<div <!-- Safety Check Modal Screen with Map Background (Confined to Phone Screen) -->
+<div id="safety" class="app-screen text-black dark:text-white">
+  <div class="relative w-full h-full">
+    <!-- Map Background inside the phone screen -->
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.6932936788236!2d-74.00601508459307!3d40.71277597933066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQyJzQ2LjAiTiA3NMKwMDAnMDAuMCJX!5e0!3m2!1sen!2sus!4v1698912000000!5m2!1sen!2sus"
+      class="w-full h-full rounded-t-2xl"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    <!-- Dark overlay for readability -->
+    <div class="absolute inset-0 bg-black/25 rounded-t-2xl"></div>
 
     <!-- Modal Content -->
     <div class="absolute inset-0 flex items-end justify-center">
